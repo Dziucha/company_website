@@ -1,4 +1,7 @@
 import re
+import smtplib
+import ssl
+import os
 
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 
@@ -11,4 +14,15 @@ def check_email(email):
         confirmation_message = "Invalid e-mail address, please correct."
     return confirmation_message
 
-def send_email():
+
+def send_email(message):
+    host = "smtp.gmail.com"
+    port = 465
+    username = "edyta.zelazny01@gmail.com"
+    password = os.getenv("DZIUSZKA_PASSWORD")
+    context = ssl.create_default_context()
+    receiver = username
+
+    with smtplib.SMTP_SSL(host, port, context=context) as server:
+        server.login(username, password)
+        server.sendmail(username, receiver, message)
