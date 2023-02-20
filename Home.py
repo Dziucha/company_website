@@ -21,10 +21,8 @@ st.subheader("Our team")
 left_column, empty_column1, middle_column, empty_column2, right_column = st.columns([3, 1, 3, 1, 3])
 
 data_file = pandas.read_csv("data.csv")
-
-for index, row in data_file.iterrows():
-    row["first name"] = row["first name"].title()
-    row["last name"] = row["last name"].title()
+data_file["first name"] = data_file["first name"].str.title()
+data_file["last name"] = data_file["last name"].str.title()
 
 with left_column:
     for index, row in data_file[:4].iterrows():
